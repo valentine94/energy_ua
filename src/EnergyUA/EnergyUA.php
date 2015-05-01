@@ -17,11 +17,11 @@ class EnergyUA {
   static protected $rates = array(0.366, 0.63, 1.407);
 
   public function setInitialIndications($var) {
-    $this->initialIndications = $var;
+    $this->initialIndications = (int) $var;
   }
 
   public function setFinalIndications($var) {
-    $this->finalIndications = $var;
+    $this->finalIndications = (int) $var;
   }
 
   public function setCity() {
