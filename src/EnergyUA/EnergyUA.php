@@ -54,22 +54,22 @@ class EnergyUA {
   }
 
   private function calculateUpToLimit() {
-    $temp = 100;
-    if ($this->diff < 100) {
+    $temp = 100 + ($this->village ? 50 : 0);
+    if ($this->diff < $temp) {
       $temp = $this->diff;
     }
-    $this->diff -= 100;
+    $this->diff -= $temp;
     return self::$rates[0] * $temp;
   }
 
   private function calculateAboveFirstLimit() {
-    $temp = 500;
-    if ($this->diff < 500) {
+    $temp = 500 + ($this->village ? 50 : 0);
+    if ($this->diff < $temp) {
       $temp = $this->diff;
       $this->diff = 0;
     }
     else {
-      $this->diff -= 500;
+      $this->diff -= $temp;
     }
     return self::$rates[1] * $temp;
   }
