@@ -67,7 +67,7 @@ class EnergyUA {
   public function calculateForSpecialFamiliesStatus() {
     $this->specialFamiliesStatus = TRUE;
     $this->setDiff();
-    $this->finalCost += self::$rates[0] * $this->diff;
+    $this->finalCost = self::$rates[0] * $this->diff;
     return $this->finalCost;
   }
 
