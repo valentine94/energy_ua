@@ -132,11 +132,11 @@ class EnergyUA {
   public function calculateCost() {
     $this->setDiff();
     $cost = 0;
-    $cost += $this->calculateUpToLimit();
+    $cost += $this->calculateUpToLimit(self::$rates[0]);
     if ($this->diff > 0) {
-      $cost += $this->calculateAboveFirstLimit();
+      $cost += $this->calculateAboveFirstLimit(self::$rates[1]);
       if ($this->diff > 0) {
-        $cost += $this->calculateAboveSecondLimit();
+        $cost += $this->calculateAboveSecondLimit(self::$rates[2]);
       }
     }
     $this->finalCost = $cost;
@@ -178,10 +178,13 @@ class EnergyUA {
   /**
    * Calculate price before the first limit.
    *
+   * @param float $rate
+   *   Rate value.
+   *
    * @return mixed
    *   Cost value.
    */
-  private function calculateUpToLimit() {
+  private function calculateUpToLimit($rate) {
     $temp = 100;
     if ($this->village) {
       $temp += 50;
@@ -190,16 +193,19 @@ class EnergyUA {
       $temp = $this->diff;
     }
     $this->diff -= $temp;
-    return self::$rates[0] * $temp;
+    return $rate * $temp;
   }
 
   /**
    * Calculate price above the first limit.
    *
+   * @param float $rate
+   *   Rate value.
+   *
    * @return mixed
    *   Cost value.
    */
-  private function calculateAboveFirstLimit() {
+  private function calculateAboveFirstLimit($rate) {
     $temp = 500;
     if ($this->village) {
       $temp -= 50;
@@ -211,17 +217,20 @@ class EnergyUA {
     else {
       $this->diff -= $temp;
     }
-    return self::$rates[1] * $temp;
+    return $rate * $temp;
   }
 
   /**
    * Calculate price above the second limit.
    *
+   * @param float $rate
+   *   Rate value.
+   *
    * @return mixed
    *   Cost value.
    */
-  private function calculateAboveSecondLimit() {
-    return self::$rates[2] * $this->diff;
+  private function calculateAboveSecondLimit($rate) {
+    return $rate * $this->diff;
   }
 
 }
