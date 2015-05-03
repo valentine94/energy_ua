@@ -10,8 +10,8 @@
 class EnergyUA {
   private $initialIndications;
   private $finalIndications;
-  private $city;
-  private $village;
+  private $city = FALSE;
+  private $village = FALSE;
   private $limit;
   private $diff;
   static protected $rates = array(0.366, 0.63, 1.407);
@@ -37,13 +37,11 @@ class EnergyUA {
   }
 
   public function setCity() {
-    $this->village  = FALSE;
-    $this->city     = TRUE;
+    $this->city = TRUE;
   }
 
   public function setVillage() {
-    $this->city     = FALSE;
-    $this->village  = TRUE;
+    $this->village = TRUE;
   }
 
   private function setDiff() {
