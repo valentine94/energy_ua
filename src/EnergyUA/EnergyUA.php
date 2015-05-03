@@ -63,12 +63,6 @@ class EnergyUA {
     return $cost;
   }
 
-  public function calculateForSpecialFamiliesStatus() {
-    $this->setDiff();
-    $this->finalCost += self::$rates[0] * $this->diff;
-    return $this->finalCost;
-  }
-
   public function getFullReport() {
     return array(
       'initial_indicators'  => $this->initialIndications,
