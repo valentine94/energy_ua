@@ -8,4 +8,5 @@ $energy->setCity();
 $energy->setInitialIndications(200);
 $energy->setFinalIndications(500);
 $result = $energy->calculateCost();
+echo $result;
 ```
