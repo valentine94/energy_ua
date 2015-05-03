@@ -66,7 +66,7 @@ class EnergyUA {
    *   Initial indications string.
    */
   public function setInitialIndications($var) {
-    if (gettype($var) == 'string') {
+    if (is_string($var)) {
       $this->initialIndications = self::removeLeadingZeros($var);
     }
     else {
@@ -81,7 +81,7 @@ class EnergyUA {
    *   Final indications string.
    */
   public function setFinalIndications($var) {
-    if (gettype($var) == 'string') {
+    if (is_string($var)) {
       $this->finalIndications = self::removeLeadingZeros($var);
     }
     else {
