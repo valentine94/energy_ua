@@ -17,6 +17,7 @@ Array (
   [final_indicators]    => 600
   [is_city]             => 
   [is_village]          => 1
+  [is_special_status]   => 
   [first_limit]         => 150
   [second_limit]        => 500
   [cost]                => 212.4
