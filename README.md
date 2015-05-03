@@ -4,7 +4,7 @@ Class to calculate the cost of electricity in Ukraine
 ```
 // Using example:
 $energy = new EnergyUA();
-$energy->setCity();
+$energy->setVillage();
 $energy->setInitialIndications('00200');
 $energy->setFinalIndications('00600');
 $energy->calculateCost();
@@ -15,8 +15,8 @@ print_r($report);
 Array ( 
   [initial_indicators]  => 200
   [final_indicators]    => 600
-  [is_city]             => 1
-  [is_village]          => 
+  [is_city]             => 
+  [is_village]          => 1
   [first_limit]         => 150
   [second_limit]        => 500
   [cost]                => 212.4
