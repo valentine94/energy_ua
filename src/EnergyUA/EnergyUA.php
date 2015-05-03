@@ -20,7 +20,7 @@ class EnergyUA {
 
   public function setInitialIndications($var) {
     if (gettype($var) == 'string') {
-      $this->initialIndications = (int) preg_replace('/^0*/', '', $var);
+      $this->initialIndications = self::removeLeadingZeros($var);
     }
     else {
       die("Wrong param type.");
@@ -29,11 +29,15 @@ class EnergyUA {
 
   public function setFinalIndications($var) {
     if (gettype($var) == 'string') {
-      $this->finalIndications = (int) preg_replace('/^0*/', '', $var);
+      $this->finalIndications = self::removeLeadingZeros($var);
     }
     else {
       die("Wrong param type.");
     }
+  }
+
+  protected static function removeLeadingZeros($str) {
+    return (int) preg_replace('/^0*/', '', $str);
   }
 
   public function setCity() {
