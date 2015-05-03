@@ -63,7 +63,7 @@ class EnergyUA {
   }
 
   private function calculateAboveFirstLimit() {
-    $temp = 500 + ($this->village ? 50 : 0);
+    $temp = 500 - ($this->village ? 50 : 0);
     if ($this->diff < $temp) {
       $temp = $this->diff;
       $this->diff = 0;
