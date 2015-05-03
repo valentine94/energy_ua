@@ -15,25 +15,34 @@ class EnergyUA {
   private $limit;
   private $diff;
   static protected $rates = array(0.366, 0.63, 1.407);
+  private $finalCost = 0;
 
   public function setInitialIndications($var) {
-    $this->initialIndications = (int) $var;
+    if (gettype($var) == 'string') {
+      $this->initialIndications = (int) preg_replace('/^0*/', '', $var);
+    }
+    else {
+      die("Wrong param type.");
+    }
   }
 
   public function setFinalIndications($var) {
-    $this->finalIndications = (int) $var;
+    if (gettype($var) == 'string') {
+      $this->finalIndications = (int) preg_replace('/^0*/', '', $var);
+    }
+    else {
+      die("Wrong param type.");
+    }
   }
 
   public function setCity() {
     $this->village  = FALSE;
     $this->city     = TRUE;
-    $this->limit    = 100;
   }
 
   public function setVillage() {
     $this->city     = FALSE;
     $this->village  = TRUE;
-    $this->limit    = 150;
   }
 
   private function setDiff() {
@@ -50,7 +59,20 @@ class EnergyUA {
         $cost += $this->calculateAboveSecondLimit();
       }
     }
+    $this->finalCost = $cost;
     return $cost;
+  }
+
+  public function getFullReport() {
+    return array(
+      'initial_indicators'  => $this->initialIndications,
+      'final_indicators'    => $this->finalIndications,
+      'is_city'             => $this->city,
+      'is_village'          => $this->village,
+      'first_limit'         => 100 + ($this->village ? 50 : 0),
+      'second_limit'        => 500,
+      'cost'                => $this->finalCost,
+    );
   }
 
   private function calculateUpToLimit() {
