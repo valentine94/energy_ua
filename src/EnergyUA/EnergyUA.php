@@ -16,6 +16,7 @@ class EnergyUA {
   private $diff;
   static protected $rates = array(0.366, 0.63, 1.407);
   private $finalCost = 0;
+  private $specialFamiliesStatus = FALSE;
 
   public function setInitialIndications($var) {
     if (gettype($var) == 'string') {
@@ -64,6 +65,7 @@ class EnergyUA {
   }
 
   public function calculateForSpecialFamiliesStatus() {
+    $this->specialFamiliesStatus = TRUE;
     $this->setDiff();
     $this->finalCost += self::$rates[0] * $this->diff;
     return $this->finalCost;
@@ -75,8 +77,9 @@ class EnergyUA {
       'final_indicators'    => $this->finalIndications,
       'is_city'             => $this->city,
       'is_village'          => $this->village,
-      'first_limit'         => 100 + ($this->village ? 50 : 0),
-      'second_limit'        => 500,
+      'is_special_status'   => $this->specialFamiliesStatus,
+      'first_limit'         => !$this->specialFamiliesStatus ? (100 + ($this->village ? 50 : 0)) : 0,
+      'second_limit'        => !$this->specialFamiliesStatus ? 500 : 0,
       'cost'                => $this->finalCost,
     );
   }
