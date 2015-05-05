@@ -51,13 +51,23 @@ class EnergyUA {
    *
    * @var array
    */
-  static protected $rates = array(0.366, 0.63, 1.407);
+  protected $rates;
   /**
    * Final cost param.
    *
    * @var int
    */
   private $finalCost = 0;
+
+  /**
+   * Basic class constructor.
+   *
+   * @param array $rates
+   *   Cost rates.
+   */
+  public function __construct($rates = array(0.366, 0.63, 1.407)) {
+    $this->rates = $rates;
+  }
 
   /**
    * Set initial indications value.
@@ -132,11 +142,11 @@ class EnergyUA {
   public function calculateCost() {
     $this->setDiff();
     $cost = 0;
-    $cost += $this->calculateUpToLimit(self::$rates[0]);
+    $cost += $this->calculateUpToLimit($this->rates[0]);
     if ($this->diff > 0) {
-      $cost += $this->calculateAboveFirstLimit(self::$rates[1]);
+      $cost += $this->calculateAboveFirstLimit($this->rates[1]);
       if ($this->diff > 0) {
-        $cost += $this->calculateAboveSecondLimit(self::$rates[2]);
+        $cost += $this->calculateAboveSecondLimit($this->rates[2]);
       }
     }
     $this->finalCost = $cost;
@@ -152,7 +162,7 @@ class EnergyUA {
   public function calculateForSpecialFamiliesStatus() {
     $this->specialFamiliesStatus = TRUE;
     $this->setDiff();
-    $this->finalCost = self::$rates[0] * $this->diff;
+    $this->finalCost = $this->rates[0] * $this->diff;
     return $this->finalCost;
   }
 
